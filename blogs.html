@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs - The Gourmet Food Atlas</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <meta name="description" content="Stories from Our Kitchens & Beyond">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="patch.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Transitions */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        #mobile-menu.closed {
+            transform: translateX(-100%);
+        }
+
+        @media (min-width: 768px) {
+            .md\:hidden {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-body antialiased bg-background text-foreground flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header
+        class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div class="w-full flex h-24 items-center justify-between pl-2 pr-6">
+            <a href="index.html" class="flex items-center gap-1">
+                <img src="assets/tgfa-logo-new.png" alt="TGFA Logo" class="h-24 w-auto">
+                <span class="font-headline text-lg sm:text-2xl font-bold uppercase tracking-widest text-[#1a1a1a]">
+                    The Gourmet Food Atlas
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-bold uppercase tracking-wider">
+                <a href="index.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Home</a>
+                <a href="about.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">About
+                    Us</a>
+                <a href="recipes.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Recipes-Videos</a>
+                <a href="menu-engineering.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Menu
+                    Engineering</a>
+                <a href="media.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Media</a>
+                <a href="blogs.html"
+                    class="text-foreground transition-colors hover:text-primary border-b-2 border-primary py-1">Blogs</a>
+                <a href="contact.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Contact</a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="menu-toggle" class="p-2">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                    <span class="sr-only">Open menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[100] bg-transparent hidden"
+        style="z-index: 100000 !important;"></div>
+    <div id="mobile-menu" style="background-color: #ffffff !important; z-index: 100001 !important;"
+        class="fixed inset-y-0 left-0 z-[100] w-full max-w-xs bg-white p-6 shadow-lg closed transform -translate-x-full transition-transform duration-300">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between mb-8">
+                <a href="#" class="flex items-center gap-2">
+
+                    <span class="font-headline text-lg font-bold" style="color: #cfa75c;">
+                        The Gourmet Food Atlas
+                    </span>
+                </a>
+
+            </div>
+            <nav class="flex flex-col space-y-4">
+                <a href="index.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">Home</a>
+                <a href="about.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">About
+                    Us</a>
+                <a href="recipes.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">Recipes-Videos</a>
+                <a href="menu-engineering.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">Menu
+                    Engineering</a>
+                <a href="media.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">Media</a>
+                <a href="blogs.html"
+                    class="mobile-link text-lg text-primary font-bold uppercase tracking-wider transition-colors hover:text-primary">Blogs</a>
+                <a href="contact.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">Contact</a>
+            </nav>
+            <div class="mt-auto">
+                <a href="contact.html"
+                    class="w-full block text-center py-2 px-4 bg-primary text-primary-foreground rounded-md hover:bg-primary/90">
+                    Reserve Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main class="min-h-screen">
+        <div class="py-8 bg-background">
+            <div class="container mx-auto px-4">
+                <header class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+                    <div class="animate-on-scroll">
+                        <h1 class="font-headline text-4xl sm:text-5xl md:text-6xl text-primary">
+                            Culinary Insights
+                        </h1>
+                        <p class="mt-4 text-lg text-foreground/80">
+                            Perspectives on fine dining, heritage, and the art of food.
+                        </p>
+                    </div>
+                </header>
+
+                <!-- Blog Grid -->
+                <section>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+                        <!-- Blog Card 1 -->
+                        <div class="animate-on-scroll h-full">
+                            <a href="#" class="block h-full group">
+                                <div
+                                    class="bg-card border-primary/10 overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-shadow duration-300 h-full rounded-lg border flex flex-col">
+                                    <div class="h-56 w-full overflow-hidden relative">
+                                        <img src="https://images.unsplash.com/photo-1596560548464-f010549b84d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600"
+                                            alt="Spices"
+                                            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                    </div>
+                                    <div class="flex flex-col flex-1 bg-card">
+                                        <div class="p-6 pb-4">
+                                            <h3
+                                                class="font-headline text-2xl text-primary mb-3 uppercase tracking-wide">
+                                                The Alchemy of Indian Spices
+                                            </h3>
+                                            <p class="text-foreground/70 mb-4 line-clamp-3">
+                                                Discover how traditional spice blends are being reimagined in modern
+                                                fine dining to create complex, layered flavour profiles.
+                                            </p>
+                                        </div>
+                                        <div class="mt-auto">
+                                            <div class="px-6 mb-4 flex items-center justify-between">
+                                                <span
+                                                    class="font-bold text-foreground/60 uppercase tracking-wider text-xs">Ingredients</span>
+                                                <span
+                                                    class="font-bold text-foreground/60 uppercase tracking-wider text-xs">Oct
+                                                    12, 2025</span>
+                                            </div>
+                                            <span
+                                                class="block w-full text-white text-center py-6 uppercase tracking-widest font-bold text-base hover:bg-black transition-colors"
+                                                style="background-color: #1b1a1a;">
+                                                READ ARTICLE
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Blog Card 2 -->
+                        <div class="animate-on-scroll h-full" style="transition-delay: 200ms;">
+                            <a href="#" class="block h-full group">
+                                <div
+                                    class="bg-card border-primary/10 overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-shadow duration-300 h-full rounded-lg border flex flex-col">
+                                    <div class="h-56 w-full overflow-hidden relative">
+                                        <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600"
+                                            alt="Sustainability"
+                                            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                    </div>
+                                    <div class="flex flex-col flex-1 bg-card">
+                                        <div class="p-6 pb-4">
+                                            <h3
+                                                class="font-headline text-2xl text-primary mb-3 uppercase tracking-wide">
+                                                Sustainable Luxury Dining
+                                            </h3>
+                                            <p class="text-foreground/70 mb-4 line-clamp-3">
+                                                How we are sourcing local, ethical ingredients to create world-class
+                                                dishes without compromising our planet's future.
+                                            </p>
+                                        </div>
+                                        <div class="mt-auto">
+                                            <div class="px-6 mb-4 flex items-center justify-between">
+                                                <span
+                                                    class="font-bold text-foreground/60 uppercase tracking-wider text-xs">Sourcing</span>
+                                                <span
+                                                    class="font-bold text-foreground/60 uppercase tracking-wider text-xs">Sep
+                                                    28, 2025</span>
+                                            </div>
+                                            <span
+                                                class="block w-full text-white text-center py-6 uppercase tracking-widest font-bold text-base hover:bg-black transition-colors"
+                                                style="background-color: #1b1a1a;">
+                                                READ ARTICLE
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Blog Card 3 -->
+                        <div class="animate-on-scroll h-full" style="transition-delay: 400ms;">
+                            <a href="#" class="block h-full group">
+                                <div
+                                    class="bg-card border-primary/10 overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-shadow duration-300 h-full rounded-lg border flex flex-col">
+                                    <div class="h-56 w-full overflow-hidden relative">
+                                        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600"
+                                            alt="Chef's Journal"
+                                            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                    </div>
+                                    <div class="flex flex-col flex-1 bg-card">
+                                        <div class="p-6 pb-4">
+                                            <h3
+                                                class="font-headline text-2xl text-primary mb-3 uppercase tracking-wide">
+                                                A Chef's Journal: The Origins
+                                            </h3>
+                                            <p class="text-foreground/70 mb-4 line-clamp-3">
+                                                Chef Nitin shares the personal stories, travel memories, and family
+                                                recipes that inspired the launch of The Gourmet Food Atlas.
+                                            </p>
+                                        </div>
+                                        <div class="mt-auto">
+                                            <div class="px-6 mb-4 flex items-center justify-between">
+                                                <span
+                                                    class="font-bold text-foreground/60 uppercase tracking-wider text-xs">Heritage</span>
+                                                <span
+                                                    class="font-bold text-foreground/60 uppercase tracking-wider text-xs">Sep
+                                                    15, 2025</span>
+                                            </div>
+                                            <span
+                                                class="block w-full text-white text-center py-6 uppercase tracking-widest font-bold text-base hover:bg-black transition-colors"
+                                                style="background-color: #1b1a1a;">
+                                                READ ARTICLE
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Blog Card 4 -->
+                        <div class="animate-on-scroll h-full" style="transition-delay: 600ms;">
+                            <a href="#" class="block h-full group">
+                                <div
+                                    class="bg-card border-primary/10 overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-shadow duration-300 h-full rounded-lg border flex flex-col">
+                                    <div class="h-56 w-full overflow-hidden relative">
+                                        <img src="assets/images/wine-pairing.jpg" alt="Wine Pairing"
+                                            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                    </div>
+                                    <div class="flex flex-col flex-1 bg-card">
+                                        <div class="p-6 pb-4">
+                                            <h3
+                                                class="font-headline text-2xl text-primary mb-3 uppercase tracking-wide">
+                                                The Art of Wine Pairing
+                                            </h3>
+                                            <p class="text-foreground/70 mb-4 line-clamp-3">
+                                                A guide to selecting the perfect wines to complement the bold and spicy
+                                                notes of Indian cuisine.
+                                            </p>
+                                        </div>
+                                        <div class="mt-auto">
+                                            <div class="px-6 mb-4 flex items-center justify-between">
+                                                <span
+                                                    class="font-bold text-foreground/60 uppercase tracking-wider text-xs">Pairing</span>
+                                                <span
+                                                    class="font-bold text-foreground/60 uppercase tracking-wider text-xs">Aug
+                                                    30, 2025</span>
+                                            </div>
+                                            <span
+                                                class="block w-full text-white text-center py-6 uppercase tracking-widest font-bold text-base hover:bg-black transition-colors"
+                                                style="background-color: #1b1a1a;">
+                                                READ ARTICLE
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-card text-card-foreground border-t border-primary/10">
+        <div class="container mx-auto py-12 px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="sm:col-span-2 md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-4">
+                        <img src="assets/tgfa-logo-new.png" alt="TGFA Logo" class="h-20 w-auto">
+                        <span class="font-headline text-xl font-bold" style="color: #cfa75c;">
+                            The Gourmet Food Atlas
+                        </span>
+                    </a>
+                    <p class="text-sm text-foreground/60">
+                        Where culinary legacy meets luxury dining.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Navigate</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="about.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">About Us</a>
+                        </li>
+                        <li><a href="recipes.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Recipes</a></li>
+                        <li><a href="menu-engineering.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Menu
+                                Engineering</a></li>
+                        <li><a href="media.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Media</a></li>
+                        <li><a href="blogs.html" class="text-sm text-primary font-bold transition-colors">Blogs</a></li>
+                        <li><a href="contact.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Contact</h3>
+                    <address class="not-italic space-y-2 text-sm">
+                        <p class="text-foreground/60">Email: <a href="mailto:tgfa2026@hotmail.com"
+                                class="hover:text-primary transition-colors">tgfa2026@hotmail.com</a></p>
+                        <p class="text-foreground/60">Phone: <a href="tel:+917758038951"
+                                class="hover:text-primary transition-colors">+91 77580 38951</a></p>
+                    </address>
+                </div>
+
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/thegourmetfoodatlas/" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"
+                            aria-label="Instagram">
+                            <i data-lucide="instagram" class="h-6 w-6"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61585407786531" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"
+                            aria-label="Facebook">
+                            <i data-lucide="facebook" class="h-6 w-6"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCJSx5_kJysMvqPqLJjEFHew" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"
+                            aria-label="YouTube">
+                            <i data-lucide="youtube" class="h-6 w-6"></i>
+                        </a>
+                        <a href="https://x.com" target="_blank" rel="noopener noreferrer"
+                            class="text-foreground/60 hover:text-primary transition-colors" aria-label="X">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6 fill-current">
+                                <title>X</title>
+                                <path
+                                    d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-primary/10 text-center text-sm text-foreground/40">
+                <p>&copy; 2026 The Gourmet Food Atlas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

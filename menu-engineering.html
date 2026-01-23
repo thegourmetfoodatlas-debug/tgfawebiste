@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Engineering - The Gourmet Food Atlas</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <meta name="description" content="The Science of Profitable Menus">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="patch.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Animation utility classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Transitions */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        #mobile-menu.closed {
+            transform: translateX(-100%);
+        }
+    </style>
+</head>
+
+<body class="font-body antialiased bg-background text-foreground">
+
+    <!-- Header -->
+    <header
+        class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div class="w-full flex h-24 items-center justify-between pl-2 pr-6">
+            <a href="index.html" class="flex items-center gap-1">
+                <img src="assets/tgfa-logo-new.png" alt="TGFA Logo" class="h-24 w-auto">
+                <span class="font-headline text-lg sm:text-2xl font-bold uppercase tracking-widest text-[#1a1a1a]">
+                    The Gourmet Food Atlas
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-bold uppercase tracking-wider">
+                <a href="index.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">Home</a>
+                <a href="about.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">About
+                    Us</a>
+                <a href="recipes.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">Recipes-Videos</a>
+                <a href="menu-engineering.html"
+                    class="text-foreground transition-colors hover-gold border-b-2 border-transparent hover:border-primary py-1">Menu
+                    Engineering</a>
+                <a href="media.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">Media</a>
+                <a href="blogs.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">Blogs</a>
+                <a href="contact.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">Contact</a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="menu-toggle" class="p-2">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                    <span class="sr-only">Open menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[100] bg-transparent hidden"
+        style="z-index: 100000 !important;"></div>
+    <div id="mobile-menu" style="background-color: #ffffff !important; z-index: 100001 !important;"
+        class="fixed inset-y-0 left-0 z-[100] w-full max-w-xs bg-white p-6 shadow-lg closed transform -translate-x-full">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between mb-8">
+                <a href="index.html" class="flex items-center gap-2">
+
+                    <span class="font-headline text-lg font-bold" style="color: #cfa75c;">
+                        The Gourmet Food Atlas
+                    </span>
+                </a>
+
+            </div>
+            <nav class="flex flex-col space-y-4">
+                <a href="index.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Home</a>
+                <a href="about.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">About
+                    Us</a>
+                <a href="recipes.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Recipes-Videos</a>
+                <a href="menu-engineering.html"
+                    class="mobile-link font-headline text-lg text-primary font-bold uppercase tracking-wider transition-colors hover-gold">Menu
+                    Engineering</a>
+                <a href="media.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Media</a>
+                <a href="blogs.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Blogs</a>
+                <a href="contact.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Contact</a>
+            </nav>
+            <div class="mt-auto">
+                <a href="contact.html"
+                    class="w-full block text-center py-2 px-4 bg-primary text-primary-foreground rounded-md hover:bg-primary/90">
+                    Reserve Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main class="min-h-screen">
+        <div class="py-8 bg-card">
+            <div class="container mx-auto px-4">
+                <header class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+                    <div class="animate-on-scroll">
+                        <h1 class="font-headline text-4xl sm:text-5xl md:text-6xl text-primary">
+                            Menu Engineering & Restaurant Design
+                        </h1>
+                        <p class="mt-4 text-lg text-foreground/80">
+                            With 40+ years of industry mastery, we’ve built and transformed global restaurant brands
+                            that define success.
+                        </p>
+                    </div>
+                </header>
+
+                <!-- Restaurant Design Consultancy -->
+                <div class="animate-on-scroll">
+                    <section class="mb-16 sm:mb-20 bg-background rounded-lg p-6 sm:p-8 md:p-12 shadow-xl">
+                        <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                            <div>
+                                <h2 class="font-headline text-3xl sm:text-4xl text-primary mb-6">
+                                    Designing for Restaurants
+                                </h2>
+                                <p class="text-lg text-foreground/80 mb-6">
+                                    At The Gourmet Food Atlas, design is an experience architecture. We craft bespoke
+                                    dining environments that captivate and enchant.
+                                </p>
+                                <table
+                                    style="width: 100%; border-collapse: collapse; margin-bottom: 2.5rem; background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+                                    <thead>
+                                        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #cfa75c;">
+                                            <th
+                                                style="text-align: left; padding: 1.25rem; font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: #000;">
+                                                DESIGN & CONCEPTS
+                                                <div
+                                                    style="font-family: 'Inter', sans-serif; font-size: 0.875rem; color: #666; font-weight: 400; margin-top: 4px; text-transform: none; font-style: italic;">
+                                                    "Crafting bespoke dining environments"
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                            <td style="padding: 1rem 1.25rem; font-size: 1.1rem; color: #333;">
+                                                Creating <strong>Designer Concept Restaurants</strong>
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                            <td style="padding: 1rem 1.25rem; font-size: 1.1rem; color: #333;">
+                                                Curating <strong>luxury menus</strong> and workflows
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                            <td style="padding: 1rem 1.25rem; font-size: 1.1rem; color: #333;">
+                                                Optimizing <strong>kitchen efficiency</strong> and flow
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                            <td style="padding: 1rem 1.25rem; font-size: 1.1rem; color: #333;">
+                                                Designing <strong>fine-dining ambiences</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 1rem 1.25rem; font-size: 1.1rem; color: #333;">
+                                                Guiding brands toward <strong>award-winning excellence</strong>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="rounded-lg overflow-hidden group h-full">
+                                <img src="assets/restaurant-design.png" alt="Restaurant Interior Design" width="400"
+                                    height="400"
+                                    class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Theme Restaurant Consulting -->
+                <div class="animate-on-scroll">
+                    <section class="bg-background rounded-lg p-6 sm:p-8 md:p-12 shadow-xl">
+                        <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                            <div class="rounded-lg overflow-hidden order-last md:order-first group h-full">
+                                <img src="assets/theme-consultancy.png" alt="Theme Restaurant Atmosphere" width="400"
+                                    height="400"
+                                    class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105">
+                            </div>
+                            <div>
+                                <h2 class="font-headline text-3xl sm:text-4xl text-primary mb-6">
+                                    Consultancy for Theme Restaurants
+                                </h2>
+                                <p class="text-lg text-foreground/80 mb-6">
+                                    From idea to execution — we craft concepts that resonate and endure, rooted in
+                                    real-world success.
+                                </p>
+                                <table
+                                    style="width: 100%; border-collapse: collapse; margin-bottom: 2.5rem; background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+                                    <thead>
+                                        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #cfa75c;">
+                                            <th
+                                                style="text-align: left; padding: 1.25rem; font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: #000;">
+                                                THEME CONSULTANCY
+                                                <div
+                                                    style="font-family: 'Inter', sans-serif; font-size: 0.875rem; color: #666; font-weight: 400; margin-top: 4px; text-transform: none; font-style: italic;">
+                                                    "Concepts that resonate and endure"
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                            <td style="padding: 1rem 1.25rem; font-size: 1.1rem; color: #333;">
+                                                <strong>Theme and concept</strong> development
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                            <td style="padding: 1rem 1.25rem; font-size: 1.1rem; color: #333;">
+                                                Interior and <strong>menu design harmony</strong>
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                            <td style="padding: 1rem 1.25rem; font-size: 1.1rem; color: #333;">
+                                                Culinary <strong>branding and storytelling</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 1rem 1.25rem; font-size: 1.1rem; color: #333;">
+                                                Staff <strong>training & SOP</strong> creation
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p class="mt-6 text-lg text-primary/80 italic">
+                                    Five award-winning restaurants — our legacy is your assurance.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="animate-on-scroll" style="margin-top: 3rem; padding-bottom: 3rem;">
+                    <section class="max-w-4xl mx-auto px-4">
+                        <div
+                            style="background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 2rem; border-radius: 4px; text-align: center;">
+                            <h2 class="font-headline text-4xl text-primary mb-8 flex items-center justify-center gap-4">
+                                Ready to build your legacy?
+                            </h2>
+
+                            <div class="relative">
+                                <a href="contact.html"
+                                    class="inline-block mt-4 btn-glitch text-xl uppercase tracking-widest text-center">
+                                    Start a Conversation
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-card text-card-foreground border-t border-primary/10">
+        <div class="container mx-auto py-12 px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="sm:col-span-2 md:col-span-1">
+                    <a href="index.html" class="flex items-center gap-2 mb-4">
+                        <img src="assets/tgfa-logo-new.png" alt="TGFA Logo" class="h-20 w-auto">
+                        <span class="font-headline text-xl font-bold" style="color: #cfa75c;">
+                            The Gourmet Food Atlas
+                        </span>
+                    </a>
+                    <p class="text-sm text-foreground/60">
+                        Where culinary legacy meets luxury dining.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Navigate</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="about.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">About Us</a>
+                        </li>
+                        <li><a href="recipes.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Recipes</a></li>
+                        <li><a href="menu-engineering.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Menu
+                                Engineering</a></li>
+                        <li><a href="media.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Media</a></li>
+                        <li><a href="blogs.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Blogs</a></li>
+                        <li><a href="contact.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Contact</h3>
+                    <address class="not-italic space-y-2 text-sm">
+                        <p class="text-foreground/60">Email: <a href="mailto:tgfa2026@hotmail.com"
+                                class="hover:text-primary transition-colors">tgfa2026@hotmail.com</a></p>
+                        <p class="text-foreground/60">Phone: <a href="tel:+917758038951"
+                                class="hover:text-primary transition-colors">+91 77580 38951</a></p>
+                    </address>
+                </div>
+
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/thegourmetfoodatlas/" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"
+                            aria-label="Instagram">
+                            <i data-lucide="instagram" class="h-6 w-6"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61585407786531" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"
+                            aria-label="Facebook">
+                            <i data-lucide="facebook" class="h-6 w-6"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCJSx5_kJysMvqPqLJjEFHew" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"
+                            aria-label="YouTube">
+                            <i data-lucide="youtube" class="h-6 w-6"></i>
+                        </a>
+                        <a href="https://x.com" target="_blank" rel="noopener noreferrer"
+                            class="text-foreground/60 hover:text-primary transition-colors" aria-label="X">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6 fill-current">
+                                <title>X</title>
+                                <path
+                                    d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-border text-center text-sm text-foreground/50">
+                <p>&copy; 2026 The Gourmet Food Atlas. All Rights Reserved.</p>
+                <p class="mt-1">"Reach out for reservations, consulting, or collaborations."</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gourmet Food Atlas</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <meta name="description" content="Where Legacy Meets Liberty">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="patch.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom styles for things Tailwind might miss or for carousel logic */
+        .carousel-item {
+            display: none;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-item.active {
+            display: block;
+        }
+
+        /* Animation utility classes equivalent to animate-in fade-in-0 */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Transitions */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        #mobile-menu.closed {
+            transform: translateX(-100%);
+        }
+
+        /* HARD FIX for "Glitch" - Ensure md:hidden works even if Tailwind is flaky */
+        @media (min-width: 768px) {
+            .md\:hidden {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-body antialiased bg-background text-foreground">
+
+    <!-- Header -->
+    <header
+        class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div class="w-full flex h-24 items-center justify-between pl-2 pr-6">
+            <a href="index.html" class="flex items-center gap-1">
+                <img src="assets/tgfa-logo-new.png" alt="TGFA Logo" class="h-24 w-auto">
+                <span class="font-headline text-lg sm:text-2xl font-bold uppercase tracking-widest text-[#1a1a1a]">
+                    The Gourmet Food Atlas
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-bold uppercase tracking-wider">
+                <a href="index.html"
+                    class="text-foreground transition-colors hover-gold border-b-2 border-transparent hover:border-primary py-1">Home</a>
+                <a href="about.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">About
+                    Us</a>
+                <a href="recipes.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">Recipes-Videos</a>
+                <a href="menu-engineering.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">Menu
+                    Engineering</a>
+                <a href="media.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">Media</a>
+                <a href="blogs.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">Blogs</a>
+                <a href="contact.html"
+                    class="text-foreground/70 transition-colors hover-gold hover:border-primary py-1 border-b-2 border-transparent">Contact</a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="menu-toggle" class="p-2">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                    <span class="sr-only">Open menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[100] bg-transparent hidden"
+        style="z-index: 100000 !important;"></div>
+    <div id="mobile-menu" style="background-color: #ffffff !important; z-index: 100001 !important;"
+        class="fixed inset-y-0 left-0 z-[100] w-full max-w-xs bg-white p-6 shadow-lg closed transform -translate-x-full">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between mb-8">
+                <a href="#" class="flex items-center gap-2">
+
+                    <span class="font-headline text-lg font-bold" style="color: #cfa75c;">
+                        The Gourmet Food Atlas
+                    </span>
+                </a>
+
+            </div>
+            <nav class="flex flex-col space-y-4">
+                <a href="index.html"
+                    class="mobile-link font-headline text-lg text-primary font-bold uppercase tracking-wider transition-colors hover-gold">Home</a>
+                <a href="about.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">About
+                    Us</a>
+                <a href="recipes.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Recipes-Videos</a>
+                <a href="menu-engineering.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Menu
+                    Engineering</a>
+                <a href="media.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Media</a>
+                <a href="blogs.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Blogs</a>
+                <a href="contact.html"
+                    class="mobile-link font-headline text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Contact</a>
+            </nav>
+            <div class="mt-auto">
+                <a href="contact.html"
+                    class="w-full block text-center py-2 px-4 bg-primary text-primary-foreground rounded-md hover:bg-primary/90">
+                    Reserve Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        <!-- Hero Section -->
+        <section class="relative w-full text-primary-foreground overflow-hidden hero-height">
+            <!-- Carousel Container -->
+            <div id="hero-carousel" class="absolute inset-0 w-full h-full bg-black">
+                <!-- Slide 1 -->
+                <div class="carousel-item active w-full h-full absolute inset-0">
+                    <!-- Blurred Background for Atmosphere -->
+                    <div class="absolute inset-0 w-full h-full">
+                        <img src="assets/hero-ref-1.jpg" alt="Background"
+                            class="w-full h-full object-cover blur-xl opacity-60 scale-110">
+                    </div>
+                    <!-- Main Image (Fully Visible) -->
+                    <img src="assets/hero-ref-1.jpg" alt="Indian food"
+                        class="relative z-10 w-full h-full object-cover drop-shadow-2xl scale-110">
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="carousel-item w-full h-full absolute inset-0">
+                    <div class="absolute inset-0 w-full h-full">
+                        <img src="assets/hero-ref-3.png" alt="Background"
+                            class="w-full h-full object-cover blur-xl opacity-60 scale-110">
+                    </div>
+                    <img src="assets/hero-ref-3.png" alt="Food plating"
+                        class="relative z-10 w-full h-full object-cover drop-shadow-2xl scale-110">
+                </div>
+                <!-- Slide 4 -->
+                <div class="carousel-item w-full h-full absolute inset-0">
+                    <div class="absolute inset-0 w-full h-full">
+                        <img src="assets/hero-ref-4.jpg" alt="Background"
+                            class="w-full h-full object-cover blur-xl opacity-60 scale-110">
+                    </div>
+                    <img src="assets/hero-ref-4.jpg" alt="Fine dining"
+                        class="relative z-10 w-full h-full object-cover drop-shadow-2xl scale-110">
+                </div>
+                <!-- Slide 5 -->
+                <div class="carousel-item w-full h-full absolute inset-0">
+                    <div class="absolute inset-0 w-full h-full">
+                        <img src="assets/hero-ref-5.png" alt="Background"
+                            class="w-full h-full object-cover blur-xl opacity-60 scale-110">
+                    </div>
+                    <img src="assets/hero-ref-5.png" alt="Breakfast platter"
+                        class="relative z-10 w-full h-full object-cover drop-shadow-2xl scale-110">
+                </div>
+                <!-- Slide 6 (New) -->
+                <div class="carousel-item w-full h-full absolute inset-0">
+                    <div class="absolute inset-0 w-full h-full">
+                        <img src="assets/uploaded_hero_image.png" alt="Background"
+                            class="w-full h-full object-cover blur-xl opacity-60 scale-110">
+                    </div>
+                    <img src="assets/uploaded_hero_image.png" alt="Featured Food"
+                        class="relative z-10 w-full h-full object-cover drop-shadow-2xl scale-110">
+                </div>
+            </div>
+
+            <!-- Carousel Controls (Arrows) -->
+            <button id="prev-slide"
+                class="group absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-[60] w-10 h-10 md:w-16 md:h-16 flex items-center justify-center bg-black/40 backdrop-blur-md border border-white/30 rounded-full hover:bg-black/60 transition-all text-white shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                    class="w-5 h-5 md:w-8 md:h-8 drop-shadow-md">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button id="next-slide"
+                class="group absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-[60] w-10 h-10 md:w-16 md:h-16 flex items-center justify-center bg-black/40 backdrop-blur-md border border-white/30 rounded-full hover:bg-black/60 transition-all text-white shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                    class="w-5 h-5 md:w-8 md:h-8 drop-shadow-md">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+
+            <!-- Carousel Indicators (Dots) -->
+            <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-30 flex space-x-4">
+                <button class="carousel-dot w-4 h-4 rounded-full bg-gray-400 hover:bg-white transition-all active-dot"
+                    style="border-radius: 50% !important;" data-slide="0"></button>
+                <button class="carousel-dot w-4 h-4 rounded-full bg-gray-400 hover:bg-white transition-all"
+                    style="border-radius: 50% !important;" data-slide="1"></button>
+                <button class="carousel-dot w-4 h-4 rounded-full bg-gray-400 hover:bg-white transition-all"
+                    style="border-radius: 50% !important;" data-slide="2"></button>
+                <button class="carousel-dot w-4 h-4 rounded-full bg-gray-400 hover:bg-white transition-all"
+                    style="border-radius: 50% !important;" data-slide="3"></button>
+                <button class="carousel-dot w-4 h-4 rounded-full bg-gray-400 hover:bg-white transition-all"
+                    style="border-radius: 50% !important;" data-slide="4"></button>
+            </div>
+
+            <!-- Gradient Overlay for better text readability -->
+            <div
+                class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-20 pointer-events-none">
+            </div>
+
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-50 px-6">
+                <div class="text-center max-w-5xl pointer-events-auto drop-shadow-lg">
+                    <h1 class="font-headline text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-2 leading-tight uppercase"
+                        style="text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">
+                        Where Legacy Meets Luxury
+                    </h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legacy Section -->
+        <section id="legacy-section" class="py-16 sm:py-20 bg-card">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-2 gap-16 w-full mx-auto items-center">
+                    <div class="animate-on-scroll space-y-6">
+                        <h2 class="font-headline text-3xl sm:text-4xl md:text-5xl text-primary">
+                            A Legacy That Redefined Dining
+                        </h2>
+                        <p class="text-base sm:text-lg text-foreground/80">
+                            From the creators of the iconic Indus Indian Restaurant — winner of Best Restaurant in
+                            Queensland — Nitin & Arati Bhogale pioneered Australia’s Designer Concept Menu. Their
+                            journey includes:
+                        </p>
+                        <ul
+                            class="space-y-4 text-foreground/90 text-base sm:text-lg list-disc list-outside ml-5 font-serif-lora">
+                            <li>Operating five award-winning restaurants in Brisbane</li>
+                            <li>Founding The Gourmet Food Atlas (Noosa) — a two-time Best Business Award winner</li>
+                            <li>Hosting Queensland Tourism dignitaries and culinary leaders</li>
+                        </ul>
+                        <p class="text-base sm:text-lg text-foreground/80 italic">
+                            This is a story of innovation, passion, and the pursuit of excellence.
+                        </p>
+                    </div>
+                    <div class="animate-on-scroll h-full">
+                        <div class="group rounded-lg overflow-hidden shadow-2xl shadow-black/50 w-full h-full">
+                            <img src="assets/founders.png" alt="Founders Nitin & Arati Bhogale"
+                                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                style="filter: brightness(1.2);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Recipes Section -->
+        <section id="recipes-section" class="py-16 sm:py-24 bg-background">
+            <div class="container mx-auto px-4">
+                <header class="text-left w-full mb-12 sm:mb-16">
+                    <div class="animate-on-scroll">
+                        <h2 class="font-headline text-3xl sm:text-4xl md:text-5xl text-primary mb-6">
+                            Our Recipes
+                        </h2>
+                        <p class="text-lg text-foreground/80">
+                            Explore our curated collection of culinary masterpieces.
+                        </p>
+                    </div>
+                </header>
+
+                <!-- Recipe Carousel Container -->
+                <!-- Recipe Carousel Container -->
+                <div id="recipe-carousel-wrapper" class="max-w-[1100px] mx-auto mb-16 relative overflow-hidden px-4">
+                    <div id="recipe-carousel-track" class="flex gap-8 transition-transform duration-500 ease-in-out">
+
+                        <!-- Card 1 -->
+                        <div class="flex-shrink-0">
+                            <div class="brutalist-card">
+                                <div class="brutalist-card__header">
+                                    <div class="brutalist-card__icon">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.22-7.52-3.22 3.22 7.52-3.21-1.08z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div class="brutalist-card__alert">
+                                        Nilgiri Nariyali Murgh
+                                    </div>
+                                </div>
+                                <img src="assets/nilgiri-nariyali-murgh.png" alt="Nilgiri Nariyali Murgh"
+                                    class="h-32 object-cover border-2 border-black w-full mb-4">
+                                <div class="brutalist-card__message">
+                                    A unique South Indian curry with fresh coconut, spinach, and stuffed chicken breast.
+                                </div>
+                                <div class="brutalist-card__actions">
+                                    <a class="brutalist-card__button brutalist-card__button--read"
+                                        href="recipe-detail.html?id=nilgiri-nariyali-murgh">
+                                        View Recipe
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="flex-shrink-0">
+                            <div class="brutalist-card">
+                                <div class="brutalist-card__header">
+                                    <div class="brutalist-card__icon">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.22-7.52-3.22 3.22 7.52-3.21-1.08z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div class="brutalist-card__alert">
+                                        Peri Peri Butter Chicken
+                                    </div>
+                                </div>
+                                <img src="assets/peri-peri-butter-chicken-v4-square.png" alt="Peri Peri Butter Chicken"
+                                    class="h-32 object-cover border-2 border-black w-full mb-4">
+                                <div class="brutalist-card__message">
+                                    A fiery yet creamy fusion of South African spice and North Indian richness.
+                                </div>
+                                <div class="brutalist-card__actions">
+                                    <a class="brutalist-card__button brutalist-card__button--read"
+                                        href="recipe-detail.html?id=peri-peri-butter-chicken">
+                                        View Recipe
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="flex-shrink-0">
+                            <div class="brutalist-card">
+                                <div class="brutalist-card__header">
+                                    <div class="brutalist-card__icon">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.22-7.52-3.22 3.22 7.52-3.21-1.08z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div class="brutalist-card__alert">
+                                        Eggplant Parmigiana
+                                    </div>
+                                </div>
+                                <img src="assets/eggplant-parmigiana.png" alt="Eggplant Parmigiana"
+                                    class="h-32 object-cover border-2 border-black w-full mb-4">
+                                <div class="brutalist-card__message">
+                                    A traditional Italian delicacy with an Indian spin.
+                                </div>
+                                <div class="brutalist-card__actions">
+                                    <a class="brutalist-card__button brutalist-card__button--read"
+                                        href="recipe-detail.html?id=eggplant-parmigiana">
+                                        View Recipe
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="flex-shrink-0">
+                            <div class="brutalist-card">
+                                <div class="brutalist-card__header">
+                                    <div class="brutalist-card__icon">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.22-7.52-3.22 3.22 7.52-3.21-1.08z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div class="brutalist-card__alert">
+                                        Mutton Rarha
+                                    </div>
+                                </div>
+                                <img src="assets/mutton-rarha-new-square.png" alt="Mutton Rarha"
+                                    class="h-32 object-cover border-2 border-black w-full mb-4">
+                                <div class="brutalist-card__message">
+                                    A festive Himachali delicacy with spicy mince gravy.
+                                </div>
+                                <div class="brutalist-card__actions">
+                                    <a class="brutalist-card__button brutalist-card__button--read"
+                                        href="recipe-detail.html?id=mutton-rarha">
+                                        View Recipe
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="flex-shrink-0">
+                            <div class="brutalist-card">
+                                <div class="brutalist-card__header">
+                                    <div class="brutalist-card__icon">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.22-7.52-3.22 3.22 7.52-3.21-1.08z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div class="brutalist-card__alert">
+                                        Thecha Crusted Rawas
+                                    </div>
+                                </div>
+                                <img src="assets/thecha-crusted-rawas.png" alt="Thecha Crusted Rawas"
+                                    class="h-32 object-cover border-2 border-black w-full mb-4">
+                                <div class="brutalist-card__message">
+                                    Spicy Maharashtrian chilli-peanut crusted Indian Salmon.
+                                </div>
+                                <div class="brutalist-card__actions">
+                                    <a class="brutalist-card__button brutalist-card__button--read"
+                                        href="recipe-detail.html?id=thecha-rawas">
+                                        View Recipe
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const track = document.getElementById('recipe-carousel-track');
+                        const cardWidth = 320; // Card width
+                        const gap = 32; // Gap (rem-8 = 2rem = 32px)
+                        const totalItemWidth = cardWidth + gap;
+
+                        // Clone first 3 items and append to end for seamless looping
+                        const children = Array.from(track.children);
+                        children.forEach(child => {
+                            const clone = child.cloneNode(true);
+                            track.appendChild(clone);
+                        });
+
+                        let index = 0;
+                        const totalOriginalItems = children.length;
+
+                        setInterval(() => {
+                            index++;
+                            track.style.transition = 'transform 0.5s ease-in-out';
+                            track.style.transform = `translateX(-${index * totalItemWidth}px)`;
+
+                            // Reset when we reach the end of the original set
+                            if (index >= totalOriginalItems) {
+                                setTimeout(() => {
+                                    track.style.transition = 'none';
+                                    index = 0;
+                                    track.style.transform = `translateX(0)`;
+                                }, 500); // Match transition duration
+                            }
+                        }, 3000);
+                    });
+                </script>
+
+                <div class="text-center animate-on-scroll mt-12">
+                    <a href="recipes.html" class="inline-block btn-glitch text-xl uppercase tracking-widest">
+                        View More
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-card text-card-foreground border-t border-primary/10">
+        <div class="container mx-auto py-12 px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="sm:col-span-2 md:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-4">
+                        <img src="assets/tgfa-logo-new.png" alt="TGFA Logo" class="h-20 w-auto">
+                        <span class="font-headline text-xl font-bold" style="color: #cfa75c;">
+                            The Gourmet Food Atlas
+                        </span>
+                    </a>
+                    <p class="text-sm text-foreground/60">
+                        Where culinary legacy meets luxury dining.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Navigate</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="about.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">About Us</a>
+                        </li>
+                        <li><a href="recipes.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Recipes</a></li>
+                        <li><a href="menu-engineering.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Menu
+                                Engineering</a></li>
+                        <li><a href="media.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Media</a></li>
+                        <li><a href="contact.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Contact</h3>
+                    <address class="not-italic space-y-2 text-sm">
+                        <p class="text-foreground/60">Email: <a href="mailto:tgfa2026@hotmail.com"
+                                class="hover:text-primary transition-colors">tgfa2026@hotmail.com</a></p>
+                        <p class="text-foreground/60">Phone: <a href="tel:+917758038951"
+                                class="hover:text-primary transition-colors">+91 77580 38951</a></p>
+                    </address>
+                </div>
+
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/thegourmetfoodatlas/" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"
+                            aria-label="Instagram">
+                            <i data-lucide="instagram" class="h-6 w-6"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61585407786531" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"
+                            aria-label="Facebook">
+                            <i data-lucide="facebook" class="h-6 w-6"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCJSx5_kJysMvqPqLJjEFHew" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"
+                            aria-label="YouTube">
+                            <i data-lucide="youtube" class="h-6 w-6"></i>
+                        </a>
+                        <a href="https://x.com" target="_blank" rel="noopener noreferrer"
+                            class="text-foreground/60 hover:text-primary transition-colors" aria-label="X">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6 fill-current">
+                                <title>X</title>
+                                <path
+                                    d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-border text-center text-sm text-foreground/50">
+                <p>&copy; 2026 The Gourmet Food Atlas. All Rights Reserved.</p>
+                <p class="mt-1">"Reach out for reservations, consulting, or collaborations."</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

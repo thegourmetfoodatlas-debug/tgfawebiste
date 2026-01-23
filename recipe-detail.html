@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Details - The Gourmet Food Atlas</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <meta name="description" content="Detailed recipe and cooking instructions">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="patch.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Animation utility classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        #mobile-menu.closed {
+            transform: translateX(-100%);
+        }
+    </style>
+</head>
+
+<body class="font-body antialiased bg-background text-foreground">
+
+    <!-- Header -->
+    <header
+        class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div class="w-full flex h-24 items-center justify-between pl-2 pr-6">
+            <a href="index.html" class="flex items-center gap-1">
+                <img src="assets/tgfa-logo-new.png" alt="TGFA Logo" class="h-24 w-auto">
+                <span class="font-headline text-lg sm:text-2xl font-bold uppercase tracking-widest text-[#1a1a1a]">
+                    The Gourmet Food Atlas
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-bold uppercase tracking-wider">
+                <a href="index.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Home</a>
+                <a href="about.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">About
+                    Us</a>
+                <a href="recipes.html"
+                    class="text-foreground transition-colors hover:text-primary border-b-2 border-transparent hover:border-primary py-1">Recipes-Videos</a>
+                <a href="menu-engineering.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Menu
+                    Engineering</a>
+                <a href="media.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Media</a>
+                <a href="contact.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Contact</a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="menu-toggle" class="p-2">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                    <span class="sr-only">Open menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[100] bg-transparent hidden"
+        style="z-index: 100000 !important;"></div>
+    <div id="mobile-menu" style="background-color: #ffffff !important; z-index: 100001 !important;"
+        class="fixed inset-y-0 left-0 z-[100] w-full max-w-xs bg-white p-6 shadow-lg closed transform -translate-x-full">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between mb-8">
+                <a href="index.html" class="flex items-center gap-2">
+
+                    <span class="font-headline text-lg font-bold" style="color: #cfa75c;">
+                        The Gourmet Food Atlas
+                    </span>
+                </a>
+
+            </div>
+            <nav class="flex flex-col space-y-4">
+                <a href="index.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">Home</a>
+                <a href="about.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">About
+                    Us</a>
+                <a href="recipes.html"
+                    class="mobile-link text-lg text-primary font-bold uppercase tracking-wider transition-colors hover:text-primary">Recipes-Videos</a>
+                <a href="menu-engineering.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Menu
+                    Engineering</a>
+                <a href="media.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Media</a>
+                <a href="blogs.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Blogs</a>
+                <a href="contact.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover-gold">Contact</a>
+            </nav>
+            <div class="mt-auto">
+                <a href="contact.html"
+                    class="w-full block text-center py-2 px-4 bg-primary text-primary-foreground rounded-md hover:bg-primary/90">
+                    Reserve Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main class="min-h-screen py-8 bg-background">
+        <div class="container mx-auto px-4 max-w-7xl">
+
+
+            <!-- Title Section (Top, Centered) -->
+            <div class="mt-12 mb-8 text-center">
+                <h1 id="recipe-title"
+                    class="font-headline text-4xl sm:text-5xl text-primary uppercase tracking-wide mb-2">
+                    Loading...
+                </h1>
+            </div>
+
+            <!-- Top Section: Video (Left) and Ingredients (Right) -->
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 max-w-7xl mx-auto items-start px-4 mb-16">
+                <!-- Left: Video/Image Section -->
+                <div class="rounded-xl overflow-hidden shadow-2xl border border-primary/10 bg-black w-full">
+                    <div class="aspect-video w-full flex items-center justify-center relative bg-black">
+                        <!-- Placeholder for actual video embed -->
+                        <img id="video-poster" src="" alt="Video Poster" class="w-full h-full object-cover">
+                        <div
+                            class="absolute inset-0 flex items-center justify-center z-10 bg-black/20 hover:bg-black/30 transition-colors">
+                            <div
+                                class="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-lg shadow-black/50">
+                                <i data-lucide="play" class="w-6 h-6 text-white fill-current ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Ingredients -->
+                <div class="flex flex-col h-full hover-glow"
+                    style="background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 2rem; border-radius: 4px;">
+
+                    <h2 class="font-body text-2xl text-foreground mb-8 uppercase tracking-widest font-normal">
+                        Ingredients</h2>
+                    <ul id="recipe-ingredients"
+                        class="space-y-6 text-foreground/80 leading-relaxed text-lg list-disc ml-5 marker:text-foreground/50 mb-12">
+                        <!-- Populated by JS -->
+                    </ul>
+
+                    <!-- Meta Details Table (Below Ingredients) -->
+                    <div class="mt-auto pt-8 border-t border-foreground/10">
+                        <div class="space-y-4">
+                            <!-- Time Table -->
+                            <div
+                                class="p-4 bg-primary/5 rounded-lg border border-primary/10 flex items-center justify-between">
+                                <span class="text-xs uppercase tracking-widest text-foreground/50 font-bold">Total
+                                    Time</span>
+                                <div class="flex items-center gap-2 text-foreground font-bold text-lg">
+                                    <i data-lucide="clock" class="w-5 h-5 text-primary"></i>
+                                    <span id="recipe-time">-- mins</span>
+                                </div>
+                            </div>
+
+                            <!-- Dietary Table -->
+                            <div
+                                class="p-4 bg-background rounded-lg border border-foreground/10 flex items-center justify-between">
+                                <span class="text-xs uppercase tracking-widest text-foreground font-bold">Dietary</span>
+                                <span id="recipe-badge"
+                                    class="px-4 py-2 text-sm font-bold uppercase tracking-widest text-white rounded-md shadow-sm inline-block">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section: Cooking Instructions (Full Width) -->
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="hover-glow"
+                    style="background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 2rem; border-radius: 4px;">
+                    <h2 class="font-body text-2xl text-foreground mb-8 uppercase tracking-widest font-normal">
+                        Cooking Instructions
+                    </h2>
+                    <div id="recipe-steps" class="space-y-8">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <!-- Recipe Notes -->
+                    <div id="recipe-notes-container" class="mt-16 pt-8 border-t border-primary/10 hidden">
+                        <h3 class="font-headline text-lg text-primary mb-2 uppercase tracking-wide">Recipe Notes:</h3>
+                        <p id="recipe-notes" class="text-foreground/70 italic"></p>
+                    </div>
+
+                    <div class="mt-12 flex justify-center">
+                        <a href="recipes.html"
+                            class="inline-flex items-center gap-2 btn-glitch text-lg uppercase tracking-widest"
+                            style="padding: 0.75rem 2rem;">
+                            Back to Recipes
+                        </a>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-card text-card-foreground border-t border-primary/10">
+        <div class="container mx-auto py-12 px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="sm:col-span-2 md:col-span-1">
+                    <a href="index.html" class="flex items-center gap-2 mb-4">
+                        <img src="assets/tgfa-logo-new.png" alt="TGFA Logo" class="h-20 w-auto">
+                        <span class="font-headline text-xl font-bold" style="color: #cfa75c;">
+                            The Gourmet Food Atlas
+                        </span>
+                    </a>
+                    <p class="text-sm text-foreground/60">
+                        Where culinary legacy meets luxury dining.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Navigate</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="about.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">About Us</a>
+                        </li>
+                        <li><a href="recipes.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Recipes-Videos</a>
+                        </li>
+                        <li><a href="menu-engineering.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Menu
+                                Engineering</a></li>
+                        <li><a href="media.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Media</a></li>
+                        <li><a href="contact.html"
+                                class="text-sm text-foreground/60 hover:text-primary transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Contact</h3>
+                    <address class="not-italic space-y-2 text-sm">
+                        <p class="text-foreground/60">Email: <a href="mailto:tgfa2026@hotmail.com"
+                                class="hover:text-primary transition-colors">tgfa2026@hotmail.com</a></p>
+                        <p class="text-foreground/60">Phone: <a href="tel:+917758038951"
+                                class="hover:text-primary transition-colors">+91 77580 38951</a></p>
+                    </address>
+                </div>
+                <div>
+                    <h3 class="font-headline text-lg font-semibold text-primary mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/thegourmetfoodatlas/" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"><i
+                                data-lucide="instagram" class="h-6 w-6"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61585407786531" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"><i
+                                data-lucide="facebook" class="h-6 w-6"></i></a>
+                        <a href="https://www.youtube.com/channel/UCJSx5_kJysMvqPqLJjEFHew" target="_blank"
+                            rel="noopener noreferrer" class="text-foreground/60 hover:text-primary transition-colors"><i
+                                data-lucide="youtube" class="h-6 w-6"></i></a>
+                        <a href="https://x.com" target="_blank" rel="noopener noreferrer"
+                            class="text-foreground/60 hover:text-primary transition-colors" aria-label="X">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6 fill-current">
+                                <title>X</title>
+                                <path
+                                    d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-border text-center text-sm text-foreground/50">
+                <p>&copy; 2026 The Gourmet Food Atlas. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Recipe Data
+        const recipes = {
+            'maestro': {
+                title: "The Maestro’s Table",
+                desc: "Step into Chef Nitin’s kitchen — where technique meets soul.",
+                time: "45 mins",
+                type: "non-veg",
+                notes: "Allow the lamb to rest in the marinade for exactly 4 hours for optimal texture.",
+                image: "https://images.unsplash.com/photo-1556910103-1c02745a30bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+                ingredients: [
+                    "500g Fresh Lamb Chops",
+                    "2 tbsp Ginger Garlic Paste",
+                    "1 tsp Saffron threads",
+                    "3 tbsp Clarified Butter (Ghee)",
+                    "1 cup Yoghurt",
+                    "Fresh Herbs for garnish"
+                ],
+                steps: [
+                    "Begin by marinating the lamb chops with ginger garlic paste and yoghurt. Let it sit for at least 4 hours.",
+                    "Heat the ghee in a heavy-bottomed pan. Add whole spices and let them crackle.",
+                    "Sear the lamb chops on high heat until golden brown on both sides.",
+                    "Lower the heat, add the saffron infused milk, and cover cook for 30 minutes until tender.",
+                    "Plate elegantly on fine bone china, drizzling the reduction sauce over the meat.",
+                    "Garnish with fresh herbs and serve hot."
+                ]
+            },
+            'plating': {
+                title: "Art of Plating",
+                desc: "Transforming dishes into visual poetry.",
+                time: "30 mins",
+                type: "veg",
+                notes: "Use chilled plating gear to keep greens crisp.",
+                image: "assets/art-of-plating.png",
+                ingredients: [
+                    "Selection of Microgreens",
+                    "Edible Flowers (Viola or Nasturtium)",
+                    "Beetroot Sphere reduction",
+                    "Gold Leaf",
+                    "Plating Tweezers"
+                ],
+                steps: [
+                    "Choose a plate that contrasts with your food colors. Dark plates for vibrant foods, light for earthy tones.",
+                    "Create a base sauce swipe using the back of a spoon.",
+                    "Place the main protein off-center to create dynamic balance.",
+                    "Arrange vegetables using the 'Clock Method' or scatter naturally for a rustic look.",
+                    "Use tweezers to place microgreens and edible flowers precisely.",
+                    "Finish with a touch of gold leaf for luxury."
+                ]
+            },
+            'flame': {
+                title: "Behind the Flame",
+                desc: "Explore the creative process that shapes designer dining.",
+                time: "60 mins",
+                type: "non-veg",
+                notes: "Ensure the charcoal is white-hot before starting to grill.",
+                image: "https://images.unsplash.com/photo-1577106263724-2c8e03bfe9cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+                ingredients: [
+                    "High-Heat Wok or Tandoor",
+                    "Charcoal",
+                    "Skewers",
+                    "Marinated Vegetables or Meat",
+                    "Live Fire setup"
+                ],
+                steps: [
+                    "Prepare the coal bed to ensure even, high radiant heat without direct flame licking the food constantly.",
+                    "Skewer the ingredients allowing enough space for air circulation.",
+                    "Place skewers in the tandoor or over the grill.",
+                    "Rotate frequently to ensure even charring and caramelization.",
+                    "Baste with butter or oil during the smoking process to keep moisture intact.",
+                    "Rest the meat for 5 minutes before serving to retain juices."
+                ]
+            },
+            'butter-chicken': {
+                title: "Smoked Butter Chicken",
+                desc: "A velvety, smoked rendition of the classic.",
+                time: "50 mins",
+                type: "non-veg",
+                notes: "For the authentic smoky flavor, do not skip the charcoal smoking step at the end.",
+                image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+                ingredients: [
+                    "800g Chicken Thighs (Boneless)",
+                    "2 cups Tomato Puree",
+                    "1/2 cup Heavy Cream",
+                    "2 tbsp Fenugreek Leaves (Kasuri Methi)",
+                    "1 tbsp Smoked Paprika",
+                    "Charcoal for smoking"
+                ],
+                steps: [
+                    "Marinate chicken with yogurt and spices for 1 hour.",
+                    "Grill or sear chicken until charred.",
+                    "Simmer tomato puree with butter and spices until oil separates.",
+                    "Add the grilled chicken and finish with cream and crushed fenugreek leaves.",
+                    "Place a live charcoal in a small bowl, place it in the center of the pot, add ghee, and cover for 5 mins to smoke.",
+                    "Serve hot with naan."
+                ]
+            },
+            'nilgiri-nariyali-murgh': {
+                title: "Nilgiri Nariyali Murgh",
+                desc: "A Unique South Indian Curry of Fresh Coconut, Spinach, Herbs and a Chicken breast stuffed with a spicy coconut sambal.",
+                time: "60 mins",
+                type: "non-veg",
+                notes: "Use fresh herbs and coconut for the most authentic flavour. Marinate chicken for 30 minutes for extra tenderness.",
+                image: "assets/nilgiri-nariyali-murgh.png",
+                ingredients: [
+                    "4 Chicken Breasts (bone-in wing)",
+                    "1 cup Fresh Grated Coconut",
+                    "1 bunch Fresh Spinach (chopped)",
+                    "1 cup Fresh Mint Leaves",
+                    "1 cup Fresh Coriander Leaves",
+                    "1/2 cup Yogurt",
+                    "2 Medium Onions (sliced)",
+                    "2 Green Chillies",
+                    "1 tbsp Ginger-Garlic Paste",
+                    "1 tsp each: Turmeric, Coriander, Garam Masala, Cumin, Fennel",
+                    "Juice of 1/2 Lemon"
+                ],
+                steps: [
+                    "Butterfly the chicken breasts and marinate with salt, chilli powder, turmeric, and ginger-garlic paste for 20 mins.",
+                    "Prepare the stuffing chutney: Grind 1 cup coconut, green chillies, garlic, coriander, curry leaves, cumin, and lemon juice into a fine mix.",
+                    "Stuff the marinated chicken with the chutney, fold back to shape, and pan-fry in hot oil until golden brown (approx 6-7 mins).",
+                    "For the Nilgiri Gravy: Blend spinach, mint, coriander, chillies, curry leaves, and coconut into a smooth green paste.",
+                    "Sauté cumin, fennel, and onions in oil until golden. Stir in ginger-garlic paste and powdered spices.",
+                    "Pour in the green paste and cook on low heat for 8-10 mins. Finish with garam masala and lime juice.",
+                    "Serve the sliced stuffed chicken over the hot Nilgiri gravy with Baby Beans Thoran and Steamed Rice."
+                ]
+            },
+            'peri-peri-butter-chicken': {
+                title: "Peri Peri Butter Chicken",
+                desc: "A fusion masterpiece blending South African Peri Peri heat with the rich elegance of Butter Chicken.",
+                time: "60 mins",
+                type: "non-veg",
+                notes: "Taste the Peri Peri marinade before adding as it can be very hot. Adjust to your tolerance.",
+                image: "assets/peri-peri-butter-chicken-v4-square.png",
+                ingredients: [
+                    "Chicken Thighs & Legs",
+                    "250g Basmati Rice",
+                    "1g Saffron Threads",
+                    "Peri Peri Marinade Powder",
+                    "Ripe Tomatoes (500g), Red Onions (100g), Capsicum (50g)",
+                    "Garlic (100g), Ginger (50g)",
+                    "1 tbsp Kashmiri Red Chilli Powder",
+                    "1 tsp Kasuri Methi",
+                    "Fresh Coriander & Mint",
+                    "Lemon Juice",
+                    "3 tbsp Butter",
+                    "Fresh Cream",
+                    "Pomegranate & Onion for Salad"
+                ],
+                steps: [
+                    "Prepare the Base Sauce: Sauté ginger, garlic, onions, capsicum, and tomatoes in oil/butter. Cook with water for 15 mins, cool, and blend. Divide into two parts.",
+                    "Marinate: Blend Peri Peri spice, Kasuri Methi, chilli powder, garlic, lemon juice, coriander, and half the base sauce. Coat chicken (with gashes) and rest for 30 mins.",
+                    "Bake: Roast chicken at 200°C for 25 mins total, basting halfway. Rest for 10 mins.",
+                    "Finish Butter Sauce: Caramelize ginger and sugar in butter. Add paprika, Kasuri Methi, and the remaining base sauce. Simmer, add cashew paste (optional), and finish with cream.",
+                    "Saffron Rice: Cook soaked Basmati rice with whole spices. Fold in saffron infused milk once done.",
+                    "Plate Up: Spread butter sauce, top with roasted chicken, spoon over buttery juices. Garnish with chilli flakes, coriander, and lemon. Serve with Saffron Rice and Pomegranate-Onion Salad."
+                ]
+            },
+            'eggplant-parmigiana': {
+                title: "Eggplant Parmigiana (Indo-Italian)",
+                desc: "A traditional Italian delicacy with an Indian spin: grilled eggplant stacks with spicy mutton mince or mushroom filling.",
+                time: "60 mins",
+                type: "non-veg",
+                notes: "For Vegetarian version: Substitute Mutton Mince with 300g Mushrooms and Spinach. Follow same method.",
+                image: "assets/eggplant-parmigiana.png",
+                ingredients: [
+                    "2 Large Eggplants (thick slices)",
+                    "300g Ripe Tomatoes (firm)",
+                    "250g Red Onions (chopped)",
+                    "50g Ginger & Garlic Paste",
+                    "400g Mutton Mince (or 300g Mushrooms + Spinach)",
+                    "350g Mixed Cheeses (Mozzarella, Cheddar, Parmesan)",
+                    "Fresh Herbs: Coriander, Basil",
+                    "Spices: Chilli Flakes, Pepper, Italian Herbs, Garam Masala, Turmeric, Paprika",
+                    "Sides: Crusty Garlic Bread, Fresh Salad"
+                ],
+                steps: [
+                    "Preheat Oven to 200°C. Slice eggplant (8-10mm), salt, rest 15 mins. Pat dry.",
+                    "Bake Prep: Arrange eggplant on oiled tray, season with salt, pepper, chilli, coriander. Bake 10 mins until half done.",
+                    "The Filling: Sauté garlic & onion until brown. Add Mutton Mince (or Mushrooms/Spinach), fry well. Add tomatoes & spices. Cook until done.",
+                    "Layering: On eggplant slice, spreads mince, top with tomato slice, seasoning, and heaped cheese. Repeat for double stack.",
+                    "Final Bake: Bake stacks for 12-15 mins until cheese is golden and bubbly.",
+                    "Serve hot with Garlic Bread and Fresh Green Salad."
+                ]
+            },
+            'mutton-rarha': {
+                title: "Mutton Rarha Feast",
+                desc: "A festive Himachali delicacy of tender mutton on bone with spicy mince gravy, served with Lacchedar Pudina Paratha and Jeera Rice.",
+                time: "90 mins",
+                type: "non-veg",
+                notes: "Marinate mutton overnight for best results. Serve with fresh onion rings and lemon wedges.",
+                image: "assets/mutton-rarha-new-square.png",
+                ingredients: [
+                    "1kg Mutton on bone, 400g Mutton Kheema",
+                    "1kg Sliced Onions, 400g Chopped Tomatoes",
+                    "500g Smooth Yoghurt",
+                    "Spices: Chilli, Coriander, Tumeric, Cumin, Garam Masala, Kasuri Methi",
+                    "Whole Spices: Cardamom, Cloves, Peppercorns, Cinnamon, Bay Leaf, Mace",
+                    "Sides: Laccha Paratha (Atta, Ghee, Spiced Onion Filling)",
+                    "Sides: Jeera Rice (Aged Basmati, Cumin, Ghee)"
+                ],
+                steps: [
+                    "Marination: Mix mutton pieces with yoghurt, ginger-garlic paste, spices (half qty). Rest 2+ hours. Mix keema with yoghurt, spices, mint. Rest 30 mins.",
+                    "Base Gravy: Heat oil/ghee, sizzle whole spices. Brown sliced onions. Add ginger-garlic paste, tomatoes, powdered spices, salt. Cook until oil separates.",
+                    "The Meat: Brown the marinated mutton bone pieces on high heat (6-8 mins). Add the mince (keema) and chillies, fry well for 10 mins.",
+                    "Slow Cook: Add 3 cups water, cover and cook until tender (pressure cook 5-7 whistles).",
+                    "Finish: Release pressure, add garam masala, kasuri methi. Simmer until oil rises. Garnish with coriander.",
+                    "Paratha Prep: Make dough with atta, salt, oil/ghee. Rest 20 mins. Mix onion filling (onion, spices, herbs).",
+                    "Paratha Cook: Roll dough, oil, spread filling. Pleat fan-style, coil, roll out again. Pan fry with ghee until crisp & flaky.",
+                    "Jeera Rice: Wash & soak basmati. Temper cumin & whole spices in ghee. Toast rice, add double water & salt. Simmer covered 15 mins. Fluff & serve."
+                ]
+            },
+            'thecha-rawas': {
+                title: "Thecha Crusted Rawas",
+                desc: "Indian Salmon fillets with a fiery Maharashtrian chilli-peanut crust, served with a warm Sweet Potato & Olive Salad.",
+                time: "50 mins",
+                type: "non-veg",
+                notes: "Wear gloves when handling chillies for the Thecha. Adjust chilli quantity for heat preference.",
+                image: "assets/thecha-crusted-rawas.png",
+                ingredients: [
+                    "800g Rawas (Indian Salmon) Fillets",
+                    "Thecha Crust: 100g Green Chillies, 100g Roasted Peanuts, 15 Garlic Cloves, Cumin, Coriander",
+                    "Sweet Potato Salad: 600g Sweet Potato, 1 Red Onion, Kalamata Olives",
+                    "Tempering: Mustard Seeds, Cumin, Urid Dal, Asafoetida, Curry Leaves",
+                    "Others: Peanut Butter, Fresh Breadcrumbs, Grated Coconut, Lime, Turmeric"
+                ],
+                steps: [
+                    "Thecha Prep: Roast peanuts. Pound chillies, garlic, cumin, coriander, salt, and peanuts in a mortar/pestle to a coarse paste.",
+                    "Salad Prep: Pressure cook sweet potato chunks (2 whistles). Peel and dice. Heat oil, temper mustard, cumin, urid dal, curry leaves, asafoetida. Pour over potatoes. Add coconut, coriander, lime juice. Toss well.",
+                    "Fish Sear: Marinate Rawas with lime, salt, turmeric. Sear skin-side down in a hot pan (1 min), flip and sear flesh side (1 min).",
+                    "Crusting: Mix Thecha with breadcrumbs and oil. Brush fish flesh with peanut butter. Top generously with Thecha mix.",
+                    "Bake: Bake at 180°C for 10-15 mins until crust is golden and fish flakes easily.",
+                    "Serve: Plate warm salad, top with crusted fish. Garnish with lemon wedge and coriander."
+                ]
+            }
+        };
+
+        // Load content based on URL param
+        const urlParams = new URLSearchParams(window.location.search);
+        const recipeId = urlParams.get('id');
+        const data = recipes[recipeId];
+
+        if (data) {
+            document.getElementById('recipe-title').textContent = data.title;
+            // document.getElementById('recipe-desc').textContent = data.desc; // Removed description
+            document.getElementById('recipe-time').textContent = data.time;
+            document.getElementById('video-poster').src = data.image;
+
+            // Badge Logic
+            const badge = document.getElementById('recipe-badge');
+            if (data.type) {
+                badge.classList.remove('hidden');
+                if (data.type === 'veg') {
+                    badge.textContent = 'VEG';
+                    badge.style.backgroundColor = '#16a34a'; // green-600
+                } else {
+                    badge.textContent = 'NON-VEG';
+                    badge.style.backgroundColor = '#dc2626'; // red-600
+                }
+            } else {
+                badge.classList.add('hidden');
+            }
+
+            // Ingredients
+            const ingList = document.getElementById('recipe-ingredients');
+            ingList.innerHTML = ''; // Clear existing
+            data.ingredients.forEach(ing => {
+                const li = document.createElement('li');
+                li.innerHTML = `${ing}`;
+                ingList.appendChild(li);
+            });
+
+            // Steps (Stylized 1 | Text)
+            // Steps (Stylized 1 | Text - Refined)
+            const stepsList = document.getElementById('recipe-steps');
+            stepsList.innerHTML = ''; // Clear existing
+            data.steps.forEach((step, index) => {
+                const stepDiv = document.createElement('div');
+                stepDiv.className = "flex items-start gap-6"; // Increased gap
+                stepDiv.innerHTML = `
+                    <div class="flex-shrink-0 flex items-center gap-3 mt-1">
+                        <span class="font-body font-bold text-2xl text-foreground leading-none">${index + 1}</span>
+                        <span class="w-px h-6 bg-foreground/20"></span>
+                    </div>
+                    <div>
+                        <p class="text-foreground/90 text-lg leading-relaxed font-light">${step}</p>
+                    </div>
+                `;
+                stepsList.appendChild(stepDiv);
+            });
+
+            // Notes
+            const notesContainer = document.getElementById('recipe-notes-container');
+            const notesText = document.getElementById('recipe-notes');
+            if (data.notes) {
+                notesText.textContent = data.notes;
+                notesContainer.classList.remove('hidden');
+            } else {
+                notesContainer.classList.add('hidden');
+            }
+
+        } else {
+            document.getElementById('recipe-title').textContent = "Recipe Not Found";
+            document.getElementById('recipe-desc').textContent = "Please select a valid recipe from the recipes page.";
+        }
+    </script>
+</body>
+
+</html>
