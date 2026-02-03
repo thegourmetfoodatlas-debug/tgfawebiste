@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Details - The Gourmet Food Atlas</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <meta name="description" content="In-depth culinary insights and stories">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="patch.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        #mobile-menu.closed {
+            transform: translateX(-100%);
+        }
+
+        /* Sync with Recipe Content Styling */
+        .blog-content h1 {
+            font-family: 'Headline', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .blog-content h2 {
+            font-family: 'Headline', serif;
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(var(--primary-rgb), 0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .blog-content h3 {
+            font-family: 'Headline', serif;
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: rgba(0, 0, 0, 0.8);
+            font-size: 1.125rem;
+        }
+
+        .blog-content ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            list-style-type: disc;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Same to same hover glow from recipes */
+        .hover-glow {
+            transition: all 0.3s ease;
+        }
+
+        .hover-glow:hover {
+            box-shadow: 0 10px 30px -10px rgba(var(--primary-rgb), 0.15) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Split Section Support */
+        .content-split {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .content-split {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .content-split.reverse {
+                direction: rtl;
+            }
+
+            .content-split.reverse>* {
+                direction: ltr;
+            }
+        }
+
+        .split-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(var(--primary-rgb), 0.1);
+        }
+    </style>
+</head>
+
+<body class="font-body antialiased bg-background text-foreground">
+
+    <!-- Header -->
+    <header
+        class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div class="w-full flex h-24 items-center justify-between pl-2 pr-6">
+            <a href="index.html" class="flex items-center gap-1">
+                <img src="assets/tgfa-logo-new.png" alt="TGFA Logo" class="h-24 w-auto">
+                <span class="font-headline text-lg sm:text-2xl font-bold uppercase tracking-widest text-[#1a1a1a]">
+                    The Gourmet Food Atlas
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-bold uppercase tracking-wider">
+                <a href="index.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Home</a>
+                <a href="about.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">About
+                    Us</a>
+                <a href="recipes.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Recipes-Videos</a>
+                <a href="menu-engineering.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Menu
+                    Engineering</a>
+                <a href="media.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Media</a>
+                <a href="blogs.html"
+                    class="text-foreground transition-colors hover:text-primary border-b-2 border-primary py-1">Blogs</a>
+                <a href="contact.html"
+                    class="text-foreground/70 transition-colors hover:text-primary hover:border-primary py-1 border-b-2 border-transparent">Contact</a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="menu-toggle" class="p-2">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                    <span class="sr-only">Open menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[100] bg-transparent hidden"
+        style="z-index: 100000 !important;"></div>
+    <div id="mobile-menu" style="background-color: #ffffff !important; z-index: 100001 !important;"
+        class="fixed inset-y-0 left-0 z-[100] w-full max-w-xs bg-white p-6 shadow-lg closed transform -translate-x-full transition-transform duration-300">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between mb-8">
+                <a href="#" class="flex items-center gap-2">
+                    <span class="font-headline text-lg font-bold" style="color: #cfa75c;">
+                        The Gourmet Food Atlas
+                    </span>
+                </a>
+            </div>
+            <nav class="flex flex-col space-y-4">
+                <a href="index.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">Home</a>
+                <a href="about.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">About
+                    Us</a>
+                <a href="recipes.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">Recipes-Videos</a>
+                <a href="menu-engineering.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">Menu
+                    Engineering</a>
+                <a href="media.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">Media</a>
+                <a href="blogs.html"
+                    class="mobile-link text-lg text-primary font-bold uppercase tracking-wider transition-colors hover:text-primary">Blogs</a>
+                <a href="contact.html"
+                    class="mobile-link text-lg text-foreground/80 font-bold uppercase tracking-wider transition-colors hover:text-primary">Contact</a>
+            </nav>
+        </div>
+    </div>
+
+    <main class="min-h-screen py-8 bg-background">
+        <div class="container mx-auto px-4 max-w-7xl">
+
+            <!-- Title Section (Top, Centered) - Same to same as Recipes -->
+            <div class="mt-12 mb-8 text-center">
+                <h1 id="blog-title-header"
+                    class="font-headline text-4xl sm:text-5xl text-primary uppercase tracking-wide mb-2">
+                    Loading...
+                </h1>
+            </div>
+
+            <!-- Top Section: Image (Left) and Meta Details (Right) - Same to same as Recipes -->
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 max-w-7xl mx-auto items-start px-4 mb-16">
+                <!-- Left: Image Section -->
+                <div class="flex flex-col">
+                    <div class="rounded-xl overflow-hidden shadow-2xl border border-primary/10 bg-black w-full">
+                        <div class="aspect-video w-full flex items-center justify-center relative bg-black">
+                            <img id="blog-image" src="" alt="Blog Image" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Information Box (Mimicking Ingredients box) -->
+                <div class="flex flex-col h-full hover-glow"
+                    style="background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 2rem; border-radius: 4px;">
+
+                    <h2 class="font-body text-2xl text-foreground mb-8 uppercase tracking-widest font-normal">
+                        Article Information</h2>
+
+                    <div class="space-y-6 mb-12">
+                        <div class="flex flex-col gap-1">
+                            <span class="text-xs uppercase tracking-widest text-foreground/50 font-bold">Category</span>
+                            <span id="blog-category" class="text-lg font-bold text-primary">--</span>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <span class="text-xs uppercase tracking-widest text-foreground/50 font-bold">Published
+                                Date</span>
+                            <span id="blog-date" class="text-lg text-foreground">--</span>
+                        </div>
+                    </div>
+
+                    <!-- Meta Details Table (Below Information) - Consistent with Recipes -->
+                    <div class="mt-auto pt-8 border-t border-foreground/10">
+                        <div class="space-y-4">
+                            <div
+                                class="p-4 bg-primary/5 rounded-lg border border-primary/10 flex items-center justify-between">
+                                <span
+                                    class="text-xs uppercase tracking-widest text-foreground/50 font-bold">Series</span>
+                                <div class="flex items-center gap-2 text-foreground font-bold text-lg">
+                                    <i data-lucide="book-open" class="w-5 h-5 text-primary"></i>
+                                    <span>Gourmet Insights</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section: Full Article Content (Full Width) - Same to same as Recipes -->
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="hover-glow"
+                    style="background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 2rem; border-radius: 4px;">
+                    <h2 class="font-body text-2xl text-foreground mb-8 uppercase tracking-widest font-normal">
+                        Full Article
+                    </h2>
+                    <article id="blog-content" class="blog-content space-y-8">
+                        <!-- Populated by JS -->
+                    </article>
+
+                    <div class="flex justify-center border-t border-primary/10"
+                        style="margin-top: 8rem; padding-top: 3rem; padding-bottom: 3rem; margin-bottom: 1rem;">
+                        <a href="blogs.html"
+                            class="inline-flex items-center gap-2 btn-glitch text-lg uppercase tracking-widest font-bold"
+                            style="padding: 1rem 3rem;">
+                            Back to Blogs
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer - Consistent with User Request -->
+    <footer class="bg-white text-card-foreground border-t border-primary/5">
+        <div class="container mx-auto py-16 px-4 text-center">
+            <img src="assets/tgfa-logo-new.png" alt="TGFA Logo" class="h-24 w-auto mx-auto mb-6">
+            <p class="text-foreground/80 mb-10 max-w-lg mx-auto text-xl italic font-light">
+                Where culinary legacy meets luxury dining.
+            </p>
+            <p class="text-sm text-foreground/60 tracking-widest uppercase">&copy; 2026 The Gourmet Food Atlas. All
+                Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const blogs = {
+                'the-art-and-science-of-good-eating': {
+                    title: "The Art and Science of Good Eating",
+                    category: "Gastronomy",
+                    date: "Feb 03, 2026",
+                    image: "assets/art-and-science-of-good-eating.jpg",
+                    content: [
+                        { type: 'p', text: "For a long time, gastronomy was just a fancy word for \"good eating.\" It is the art and science of food. It looks at what we eat, reflects our history, our culture, and our social lives. But gastronomy isn't just about filling your stomach; it’s about the joy of taste, the feel of different textures, and how beautiful a plate looks." },
+                        {
+                            type: 'split',
+                            left: [
+                                { type: 'h2', text: "To understand gastronomy, we look at four main areas:" },
+                                {
+                                    type: 'list', items: [
+                                        "Practical techniques (how we cook).",
+                                        "Science (why food changes when we heat or cool it).",
+                                        "Ingredients (what we use).",
+                                        "Evaluation (how we judge the quality)."
+                                    ]
+                                }
+                            ],
+                            right: { type: 'image', src: 'assets/gastronomy-plate-1.png', alt: 'Gastronomy Presentation 1' }
+                        },
+                        { type: 'h2', text: "Moving Beyond the Kitchen" },
+                        { type: 'p', text: "Gastronomy is more than just cooking. It includes how we behave at the table (etiquette), how we pair drinks with meals, and even the \"vibe\" of the dining room. Today, food from different parts of the world is mixing together to create Fusion cuisine dishes that feel new but strangely familiar at the same time." },
+                        { type: 'h2', text: "Why Healthy Cooking is the Future" },
+                        { type: 'p', text: "The world is changing, and so is our food. Today, great cooking must include health and sustainability. Because a healthy life starts in the kitchen, chefs are now focusing on how food makes us feel, not just how it tastes." },
+                        { type: 'h3', text: "Diets for Every Need" },
+                        { type: 'p', text: "Modern restaurants are moving away from \"one-size-fits-all\" menus. Instead, they are creating bespoke (personalized) meals for different lifestyles, such as:" },
+                        {
+                            type: 'list', items: [
+                                "Plant-based and Vegan diets: Focusing on vegetables and grains.",
+                                "Heart-friendly and Hormone-balancing diets: Using food as medicine.",
+                                "Sports nutrition: Helping athletes perform better.",
+                                "Ayurvedic cooking: Using ancient traditions to balance the body and mind."
+                            ]
+                        },
+                        { type: 'h2', text: "The Science of Modern Food" },
+                        { type: 'p', text: "To make healthy food exciting, we use new tools and scientific discoveries. We are breaking down the walls of \"boring\" diets by using:" },
+                        { type: 'h3', text: "1. The Gut-Brain Connection" },
+                        { type: 'p', text: "We now study Psychoneuroimmunology (PNI) and the microbiota (the tiny good bacteria in your gut). This helps us understand how the food we eat affects our mood and our immune system." },
+                        { type: 'h3', text: "2. Gastrobotany" },
+                        { type: 'p', text: "This is the study of edible plants. It helps us find amazing vegetable proteins and alternatives to dairy or eggs. Think of creamy sauces made from plants instead of heavy cream!" },
+                        {
+                            type: 'split',
+                            left: [
+                                { type: 'h3', text: "3. Molecular Gastronomy" },
+                                { type: 'p', text: "Coined in 1988, this science changes ingredients at a molecular level. You have probably seen this in action!" },
+                                {
+                                    type: 'list', items: [
+                                        "Spherification: Making the \"bubbles\" in Bubble Tea.",
+                                        "Foams: Turning soups into light, flavorful air.",
+                                        "Nitrogen: Using gas to freeze ice cream instantly for a smooth texture."
+                                    ]
+                                }
+                            ],
+                            right: { type: 'image', src: 'assets/gastronomy-plate-2.png', alt: 'Gastronomy Presentation 2' },
+                            reverse: true
+                        },
+                        { type: 'h2', text: "A Greener Way to Eat" },
+                        { type: 'p', text: "Since I began my culinary journey in 1980, the biggest change I have seen is Menu Engineering. This means we design menus that use hyper-local and seasonal ingredients." },
+                        { type: 'p', text: "By sourcing food from nearby farms, we reduce our carbon footprint, support local farmers, and ensure the food is as fresh and nutrient-dense as possible." },
+                        { type: 'p', text: "Food and health are the two things that link every human being on Earth. Whether we are using high-tech science or ancient herbal traditions, the goal is the same: to create a sustainable, delicious, and healthy future for everyone." },
+                        { type: 'p', text: "Gastronomy is a vast topic, and in this blog, I have only touched upon the main points. I will elaborate on each important aspect in future blogs." }
+                    ]
+                }
+            };
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const blogId = urlParams.get('id');
+            const data = blogs[blogId];
+
+            if (data) {
+                document.getElementById('blog-title-header').textContent = data.title;
+                document.getElementById('blog-category').textContent = data.category;
+                document.getElementById('blog-date').textContent = data.date;
+                document.getElementById('blog-image').src = data.image;
+
+                const contentArea = document.getElementById('blog-content');
+
+                function renderElement(item, parent) {
+                    let element;
+                    if (item.type === 'p') {
+                        element = document.createElement('p');
+                        element.textContent = item.text;
+                    } else if (item.type === 'h1' || item.type === 'h2' || item.type === 'h3') {
+                        element = document.createElement(item.type);
+                        element.textContent = item.text;
+                    } else if (item.type === 'list') {
+                        element = document.createElement('ul');
+                        item.items.forEach(liText => {
+                            const li = document.createElement('li');
+                            li.textContent = liText;
+                            element.appendChild(li);
+                        });
+                    } else if (item.type === 'image') {
+                        element = document.createElement('img');
+                        element.src = item.src;
+                        element.alt = item.alt;
+                        element.className = 'split-image';
+                    } else if (item.type === 'split') {
+                        element = document.createElement('div');
+                        element.className = 'content-split';
+                        if (item.reverse) element.classList.add('reverse');
+
+                        const leftCol = document.createElement('div');
+                        const rightCol = document.createElement('div');
+
+                        // Handle left
+                        if (Array.isArray(item.left)) {
+                            item.left.forEach(subItem => renderElement(subItem, leftCol));
+                        } else {
+                            renderElement(item.left, leftCol);
+                        }
+
+                        // Handle right
+                        if (Array.isArray(item.right)) {
+                            item.right.forEach(subItem => renderElement(subItem, rightCol));
+                        } else {
+                            renderElement(item.right, rightCol);
+                        }
+
+                        element.appendChild(leftCol);
+                        element.appendChild(rightCol);
+                    }
+                    if (element) parent.appendChild(element);
+                }
+
+                data.content.forEach(item => renderElement(item, contentArea));
+
+                lucide.createIcons();
+            } else {
+                document.getElementById('blog-title-header').textContent = "Article Not Found";
+            }
+        });
+    </script>
+</body>
+
+</html>
