@@ -84,6 +84,35 @@
             color: rgba(0, 0, 0, 0.8);
         }
 
+        .blog-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            background: white;
+            border: 1px solid rgba(var(--primary-rgb), 0.1);
+        }
+
+        .blog-content th {
+            background: rgba(var(--primary-rgb), 0.05);
+            color: var(--primary);
+            font-family: 'Headline', serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid rgba(var(--primary-rgb), 0.1);
+        }
+
+        .blog-content td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .blog-content tr:last-child td {
+            border-bottom: none;
+        }
+
         /* Same to same hover glow from recipes */
         .hover-glow {
             transition: all 0.3s ease;
@@ -364,6 +393,88 @@
                         { type: 'p', text: "Food and health are the two things that link every human being on Earth. Whether we are using high-tech science or ancient herbal traditions, the goal is the same: to create a sustainable, delicious, and healthy future for everyone." },
                         { type: 'p', text: "Gastronomy is a vast topic, and in this blog, I have only touched upon the main points. I will elaborate on each important aspect in future blogs." }
                     ]
+                },
+                'jeera-the-ancient-seed-of-health-and-flavor': {
+                    title: "Jeera: The Ancient Seed of Health and Flavor",
+                    category: "Spice Heritage",
+                    date: "Feb 04, 2026",
+                    image: "assets/jeera-ancient-seed.jpg",
+                    content: [
+                        {
+                            type: 'split',
+                            left: { type: 'p', text: "The name Jeera originates from the Sanskrit word Jiraka, which literally translates to \"that which promotes digestion.\" More than just a kitchen staple, this tiny seed carries with it a legacy of ancient trade, Ayurvedic wisdom, and unparalleled culinary versatility." },
+                            right: { type: 'image', src: 'assets/jeera-spoon.png', alt: 'Jeera on a spoon' }
+                        },
+                        { type: 'h2', text: "The Botanical and Historical Journey" },
+                        { type: 'p', text: "Scientifically known as Cuminum cyminum, cumin is a flowering plant from the parsley family (Apiaceae). While we often refer to them as seeds, they are technically the dried, aromatic fruit of the plant." },
+                        { type: 'p', text: "Cumin is native to the Eastern Mediterranean specifically Egypt and parts of the Middle East. It arrived on the Indian Subcontinent via ancient trade routes, with the most significant entry point being Persia. The linguistic connection remains clear today: the Indian Jeera mirrors the ancient Persian name Zireh." },
+                        { type: 'h2', text: "From Medicine to the Royal Kitchen" },
+                        { type: 'p', text: "Initially, the cultural adoption of Jeera in India wasn't for flavor, but for function. It was utilized in Ayurveda for medicinal purposes and the creation of ritual incense. In Ayurvedic practice, Jiraka is revered for its ability to balance Agni (stomach acids and digestive fire)." },
+                        {
+                            type: 'split',
+                            left: [
+                                { type: 'p', text: "Recognizing these health benefits, Royal Chefs integrated the spice into courtly cuisines. Today, modern science back these ancient claims, verifying that Jeera possesses:" },
+                                {
+                                    type: 'list', items: [
+                                        "Anti-inflammatory effects, particularly regarding gut health.",
+                                        "Digestive stimulants that aid nutrient absorption.",
+                                        "Weight management properties."
+                                    ]
+                                },
+                                { type: 'h3', text: "Expert Advice" },
+                                { type: 'p', text: "Ditch the \"Cumin Detox Pills.\" Simply incorporating fresh Jeera into your regular cooking provides the same benefits more naturally and affordably." }
+                            ],
+                            right: { type: 'image', src: 'assets/jeera-powder-bowl.png', alt: 'Jeera powder in a bowl' },
+                            reverse: true
+                        },
+                        { type: 'h2', text: "India: The Global Powerhouse of Cumin" },
+                        { type: 'p', text: "Between 500 BCE and 1000 CE, Jeera became so well-established in India’s arid climates that the country transitioned from an importer to the world’s largest producer. Today, India produces 70% of the world’s cumin, totaling roughly 5 lakh tons annually across five key regions:" },
+                        {
+                            type: 'table',
+                            headers: ["Region", "Production Share", "Annual Tonnage"],
+                            rows: [
+                                ["Gujarat", "57.9%", "420,000 tons"],
+                                ["Rajasthan", "14.0%", "303,500 tons"],
+                                ["West Bengal", "0.2%", "1,510 tons"],
+                                ["Madhya Pradesh", "0.1%", "330 tons"],
+                                ["Karnataka", "<0.1%", "40 tons"]
+                            ]
+                        },
+                        { type: 'h2', text: "Why Indian Cumin is Superior" },
+                        {
+                            type: 'split',
+                            left: { type: 'image', src: 'assets/jeera-jar.png', alt: 'Jeera in a jar' },
+                            right: { type: 'p', text: "Indian Jeera is distinct for its intense, nutty aroma and typically smaller, darker, irregular-shaped seeds. In contrast, Mexican cumin tends to be larger, lighter, and more herbal. The secret to the Indian variety’s superiority lies in the ancient technique of Sun Drying, which locks in essential oils far more effectively than modern machine drying." }
+                        },
+                        { type: 'h2', text: "Preserving the Aroma: Storage Tips" },
+                        { type: 'p', text: "Buying high-quality Jeera is only half the battle; storing it incorrectly kills the flavor. Follow these tips to keep seeds fresh for over a year:" },
+                        {
+                            type: 'list', items: [
+                                "Airtight & Dark: Use clear glass jars, but store them in a cool, dark pantry away from sunlight.",
+                                "Keep it Cool: Never store spices near your stove or oven; heat dissipates the essential oils.",
+                                "Grind on Demand: Only grind as much powder as you need for the moment, as ground cumin loses its punch within three months.",
+                                "The Sniff Test: If your Jeera smells musty or like cardboard, it’s time to toss it in the bin."
+                            ]
+                        },
+                        { type: 'h2', text: "Culinary Do's and Don'ts" },
+                        { type: 'p', text: "A common mistake is using cumin in every dish or overcooking it." },
+                        {
+                            type: 'list', items: [
+                                "Delicate Dishes: Use caution with creamy Khormas or delicate seafood. For fish, add a tiny pinch of powder at the very end rather than frying whole seeds.",
+                                "Tempering (Tadka): When frying seeds in oil, do not exceed 30 seconds. Watch for the color change rather than just the popping sound; burnt Jeera tastes bitter and offensive.",
+                                "Tenderizing: For meat marinations, mix 1 tsp of fresh cumin powder with yogurt. Let it sit for two hours to help break down the fibers before adding your second marination."
+                            ]
+                        },
+                        { type: 'h2', text: "Not All Cumin is Created Equal" },
+                        { type: 'p', text: "To cook like a pro, match your region to your recipe:" },
+                        {
+                            type: 'list', items: [
+                                "Rajasthani Cumin: Best for hearty, earthy dishes like dal or red meats.",
+                                "Gujarati Cumin: Best for lighter, citrusy, or vegetable-forward dishes."
+                            ]
+                        },
+                        { type: 'p', text: "In many Indian homes, a small bowl of salt and freshly roasted Jeera powder sits permanently on the dining table—a testament to its cultural importance. Show this spice the respect it deserves." }
+                    ]
                 }
             };
 
@@ -423,6 +534,30 @@
 
                         element.appendChild(leftCol);
                         element.appendChild(rightCol);
+                    } else if (item.type === 'table') {
+                        element = document.createElement('table');
+                        if (item.headers) {
+                            const thead = document.createElement('thead');
+                            const tr = document.createElement('tr');
+                            item.headers.forEach(text => {
+                                const th = document.createElement('th');
+                                th.textContent = text;
+                                tr.appendChild(th);
+                            });
+                            thead.appendChild(tr);
+                            element.appendChild(thead);
+                        }
+                        const tbody = document.createElement('tbody');
+                        item.rows.forEach(rowData => {
+                            const tr = document.createElement('tr');
+                            rowData.forEach(text => {
+                                const td = document.createElement('td');
+                                td.textContent = text;
+                                tr.appendChild(td);
+                            });
+                            tbody.appendChild(tr);
+                        });
+                        element.appendChild(tbody);
                     }
                     if (element) parent.appendChild(element);
                 }

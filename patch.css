@@ -204,6 +204,22 @@ a.inline-block {
     height: 6rem !important;
 }
 
+.h-40 {
+    height: 25rem !important;
+}
+
+.min-h-16 {
+    min-height: 4rem !important;
+}
+
+.text-justify {
+    text-align: justify !important;
+}
+
+.bg-muted {
+    background-color: #f5f5f5 !important;
+}
+
 .w-auto {
     width: auto !important;
 }
@@ -666,6 +682,7 @@ section {
         opacity: 1;
     }
 }
+
 /* --- Footer Mobile Responsiveness Patch --- */
 @media (max-width: 639px) {
     footer .container .grid {
@@ -675,7 +692,7 @@ section {
         gap: 2.5rem !important;
     }
 
-    footer .container .grid > div {
+    footer .container .grid>div {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
@@ -687,7 +704,7 @@ section {
         justify-content: center !important;
         width: 100% !important;
     }
-    
+
     /* Ensure the logo link is centered */
     footer .container .grid a.flex {
         justify-content: center !important;
@@ -705,4 +722,3 @@ section {
         padding-right: 1.5rem !important;
     }
 }
-
