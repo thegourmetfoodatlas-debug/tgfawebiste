@@ -40,4 +40,19 @@
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://thegourmetfoodatlas.com/blog-detail.html?id=the-006-percent-dilemma-why-the-world-relies-on-only-3-staple-crops</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thegourmetfoodatlas.com/blog-detail.html?id=jeera-the-ancient-seed-of-health-and-flavor</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thegourmetfoodatlas.com/blog-detail.html?id=the-art-and-science-of-good-eating</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

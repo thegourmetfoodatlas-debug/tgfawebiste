@@ -329,8 +329,62 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const blogs = {
+                'the-006-percent-dilemma-why-the-world-relies-on-only-3-staple-crops': {
+                    title: "The 0.06% Dilemma: Why the World Relies on Only 3 Staple Crops",
+                    metaDescription: "Explore why humanity relies on just 3 crops—Rice, Wheat, and Maize—despite having 300,000 edible plant species. Learn about food security, domestication, and the future of global hunger.",
+                    category: "Food Security",
+                    date: "Feb 11, 2026",
+                    image: "assets/the-006-percent-dilemma.png",
+                    content: [
+                        { type: 'p', text: "The sheer scale of Earth’s biodiversity is staggering. Experts estimate there are over 400,000 known plant species on our planet. Of these, anywhere from 30,000 to 300,000 are technically edible—meaning they provide nutritional value without being lethal to humans." },
+                        { type: 'p', text: "Yet, if you look at your dinner plate, the story changes. We are currently trapped in a botanical bottleneck. We consume only 0.06% of the edible plant species available to us. From hundreds of thousands of possibilities, a mere 150 to 200 species are commonly cultivated, and just three—Rice, Wheat, and Maize—provide 75% of the world’s food supply." },
+                        { type: 'h2', text: "The Illusion of Choice: Our Narrowing Global Diet" },
+                        { type: 'p', text: "While modern grocery stores boast aisles of variety, our \"Western style\" diets are surprisingly shallow. Most individuals consume fewer than 40 different plant species, despite nutritionists recommending at least 30 different plants per week to maintain a healthy gut microbiome." },
+                        { type: 'h3', text: "The Rise of the \"Global Staple\"" },
+                        { type: 'p', text: "Our reliance on a narrow selection of plants isn't just a matter of preference; it’s a result of modern industrial agriculture favoring genetically uniform crops. This shift has led to a significant dietary decline compared to our hunter-gatherer ancestors, who utilized a much wider spectrum of the local flora." },
+                        { type: 'h2', text: "Global Food Security and the Four Pillars" },
+                        { type: 'p', text: "Global Food Security exists when all people have physical and economic access to sufficient, safe, and nutritious food. As of 2022, nearly 29.6% of the world population experienced moderate to severe food insecurity." },
+                        { type: 'p', text: "To understand why our reliance on three crops is dangerous, we must look at the four pillars of food security:" },
+                        {
+                            type: 'list', items: [
+                                "Availability: Having enough food produced or stocked.",
+                                "Access: The affordability and physical reach of food.",
+                                "Utilization: The body’s ability to absorb nutrients (linked to clean water and health).",
+                                "Stability: Ensuring food access isn't wiped out by a single bad harvest or conflict."
+                            ]
+                        },
+                        { type: 'p', text: "When we rely on just three crops, we risk Stability. If a specific blight or climate event hits wheat or rice globally, the entire system collapses." },
+                        { type: 'h2', text: "The Race to \"Zero Hunger\"" },
+                        { type: 'p', text: "The United Nations Sustainable Development Goal 2 aims for Zero Hunger by 2030. However, the 2025 Global Hunger Index suggests we are failing. Projections indicate that \"low hunger\" levels may not be reached until 2137 at our current pace, with hunger rising sharply in Africa and Western Asia." },
+                        { type: 'h2', text: "Why Don't We Eat More Variety?" },
+                        { type: 'p', text: "If there are 299,800 other edible plants, why aren't we eating them to end world hunger? The answer isn't as simple as taste or nutrition." },
+                        { type: 'h3', text: "The Myth of Toxicity" },
+                        { type: 'p', text: "In Guns, Germs, and Steel, Jared Diamond suggested our ancestors simply picked the \"non-poisonous\" plants. However, many of our favorites are actually toxic." },
+                        {
+                            type: 'list', items: [
+                                "Potatoes and Tomatoes: Contain alkaloids.",
+                                "Cassava: Contains cyanide.",
+                                "Taro: Packed with oxalates.",
+                                "Chillies and Wasabi: We enjoy them specifically for their \"defense\" chemicals."
+                            ]
+                        },
+                        { type: 'p', text: "In contrast, our major staples have flexible and robust reproduction:" },
+                        {
+                            type: 'list', items: [
+                                "Wind Pollination: Wheat, Rice, and Maize are grasses. They don't need insects at all; they rely on the wind to carry pollen across vast fields.",
+                                "Generalist Pollinators: Other common crops can be pollinated by almost any insect available, making them easy to grow worldwide.",
+                                "Vegetative Propagation: Crops like potatoes and yams are spread via tubers or cuttings, allowing them to thrive without needing to rely on seeds or pollinators at all."
+                            ]
+                        },
+                        { type: 'h2', text: "The Path Forward: Diversifying the Plate" },
+                        { type: 'p', text: "Ancient farmers chose the \"Big 12\" because they were sturdy, high-yielding, and easy to grow anywhere. But today, our survival may depend on looking at the species they left behind." },
+                        { type: 'p', text: "There are over 70,000 edible fruits worldwide, yet most of us haven't tasted more than 20. By reintroducing resilient, neglected species, we can build a food system that is not only more nutritious but also capable of surviving a changing climate." },
+                        { type: 'p', text: "Stay tuned to TGFA for more eye-opening insights into the food that fuels our world." }
+                    ]
+                },
                 'the-art-and-science-of-good-eating': {
                     title: "The Art and Science of Good Eating",
+                    metaDescription: "Gastronomy is more than just filling your stomach; it’s about history, culture, and the science behind every bite.",
                     category: "Gastronomy",
                     date: "Feb 03, 2026",
                     image: "assets/art-and-science-of-good-eating.jpg",
@@ -396,6 +450,7 @@
                 },
                 'jeera-the-ancient-seed-of-health-and-flavor': {
                     title: "Jeera: The Ancient Seed of Health and Flavor",
+                    metaDescription: "Master the art of jeera! From Gujarati cumin's citrus notes to earthy Rajasthani cumin, learn to use this ancient seed for flavor & holistic health.",
                     category: "Spice Heritage",
                     date: "Feb 04, 2026",
                     image: "assets/jeera-ancient-seed.jpg",
@@ -487,6 +542,13 @@
                 document.getElementById('blog-category').textContent = data.category;
                 document.getElementById('blog-date').textContent = data.date;
                 document.getElementById('blog-image').src = data.image;
+
+                // Update SEO tags
+                document.title = `${data.title} - The Gourmet Food Atlas`;
+                const metaDescription = document.querySelector('meta[name="description"]');
+                if (metaDescription && data.metaDescription) {
+                    metaDescription.setAttribute('content', data.metaDescription);
+                }
 
                 const contentArea = document.getElementById('blog-content');
 
