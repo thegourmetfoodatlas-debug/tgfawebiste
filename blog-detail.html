@@ -338,10 +338,22 @@
                     content: [
                         { type: 'p', text: "The sheer scale of Earth’s biodiversity is staggering. Experts estimate there are over 400,000 known plant species on our planet. Of these, anywhere from 30,000 to 300,000 are technically edible—meaning they provide nutritional value without being lethal to humans." },
                         { type: 'p', text: "Yet, if you look at your dinner plate, the story changes. We are currently trapped in a botanical bottleneck. We consume only 0.06% of the edible plant species available to us. From hundreds of thousands of possibilities, a mere 150 to 200 species are commonly cultivated, and just three—Rice, Wheat, and Maize—provide 75% of the world’s food supply." },
-                        { type: 'h2', text: "The Illusion of Choice: Our Narrowing Global Diet" },
-                        { type: 'p', text: "While modern grocery stores boast aisles of variety, our \"Western style\" diets are surprisingly shallow. Most individuals consume fewer than 40 different plant species, despite nutritionists recommending at least 30 different plants per week to maintain a healthy gut microbiome." },
-                        { type: 'h3', text: "The Rise of the \"Global Staple\"" },
-                        { type: 'p', text: "Our reliance on a narrow selection of plants isn't just a matter of preference; it’s a result of modern industrial agriculture favoring genetically uniform crops. This shift has led to a significant dietary decline compared to our hunter-gatherer ancestors, who utilized a much wider spectrum of the local flora." },
+                        {
+                            type: 'split',
+                            left: [
+                                { type: 'h2', text: "The Illusion of Choice: Our Narrowing Global Diet" },
+                                { type: 'p', text: "While modern grocery stores boast aisles of variety, our \"Western style\" diets are surprisingly shallow. Most individuals consume fewer than 40 different plant species, despite nutritionists recommending at least 30 different plants per week to maintain a healthy gut microbiome." }
+                            ],
+                            right: { type: 'image', src: 'assets/narrowing-global-diet.png', alt: 'Narrowing Global Diet' }
+                        },
+                        {
+                            type: 'split',
+                            left: { type: 'image', src: 'assets/global-staple.png', alt: 'Global Staple Crops' },
+                            right: [
+                                { type: 'h3', text: "The Rise of the \"Global Staple\"" },
+                                { type: 'p', text: "Our reliance on a narrow selection of plants isn't just a matter of preference; it’s a result of modern industrial agriculture favoring genetically uniform crops. This shift has led to a significant dietary decline compared to our hunter-gatherer ancestors, who utilized a much wider spectrum of the local flora." }
+                            ]
+                        },
                         { type: 'h2', text: "Global Food Security and the Four Pillars" },
                         { type: 'p', text: "Global Food Security exists when all people have physical and economic access to sufficient, safe, and nutritious food. As of 2022, nearly 29.6% of the world population experienced moderate to severe food insecurity." },
                         { type: 'p', text: "To understand why our reliance on three crops is dangerous, we must look at the four pillars of food security:" },
